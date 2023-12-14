@@ -1,0 +1,6 @@
+flask
+flask[async]
+flask-restful
+better-profanity
+openai
+python-dotenv

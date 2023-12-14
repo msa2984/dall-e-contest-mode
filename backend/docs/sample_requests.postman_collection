@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "432378df-7ef2-4699-bd9b-859b6a2265f3",
+		"name": "Flask Open AI API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28075995"
+	},
+	"item": [
+		{
+			"name": "Application Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/health/app",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"health",
+						"app"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dependency Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/health/dependencies",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"health",
+						"dependencies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Username",
+						"value": "test@example.com",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"prompt\": \"An apple in the style of Monet\"\r\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/create",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
