@@ -1,11 +1,12 @@
 from flask import Blueprint, jsonify
+from flask_cors import cross_origin
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.open_ai_service import verify_openai_connection
 
 health = Blueprint('health', __name__, url_prefix="/health")
 
-@health.route('/app', methods = ['GET']) 
+@health.route('/app', methods = ['GET'])
 def app_health_check(): 
     '''
     A basic health check. It returns True in all scenarios
@@ -13,7 +14,7 @@ def app_health_check():
     '''
     return jsonify({'isServiceRunning': True});
 
-@health.route('/dependencies', methods = ['GET']) 
+@health.route('/dependencies', methods = ['GET'])
 async def dependency_health_check(): 
     '''
     A health check for the REST API's dependencies.

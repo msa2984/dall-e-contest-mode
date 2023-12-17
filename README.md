@@ -3,6 +3,7 @@
 - [DALL-E In Class Demonstration](#dall-e-in-class-demonstration)
   - [Overview](#overview)
   - [Architecture](#architecture)
+  - [References](#references)
 
 ## Overview
 
@@ -31,3 +32,8 @@ sequenceDiagram
     REST API Backend-->>-React Frontend: Here is the URL hosting the created image.
     React Frontend-->>-User: Downloads and displays the created image.
 ```
+
+## References
+
+- [Using Devcontainers](https://code.visualstudio.com/docs/devcontainers/containers)
+- [Backend documentation](/backend/README.md)

@@ -1,4 +1,6 @@
+import os
 from flask import Flask
+from flask_cors import CORS
 import blueprints.api.routes as api_blueprints
 import blueprints.health.routes as health_blueprints
 
