@@ -40,11 +40,11 @@ export async function submitCurrentImage(prompt: string, imageUrl: string, email
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify([{
+      body: JSON.stringify({
         prompt: prompt,
         url: imageUrl,
         email: email
-      }]),
+      }),
     });
 
     if (response.ok) {
@@ -111,5 +111,31 @@ export async function getFinalScores(): Promise<any | null> {
   } catch (ex) {
     console.error(ex);
   }
+  return null;
+}
+
+// A caller function for the /api/contest-entries endpoint.
+// Returns all of the entries in the contest.
+export async function getAllEntries(): Promise<Array<any> | null> {
+  try {
+    const url = apiPrefix.concat("/api/contest-entries");
+    const response = await fetch(url, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      return (await response.json()).entries;
+    } else {
+      console.error(
+        `There was an error retrieving the entries for the contest! Error: ${response.statusText}`
+      );
+    }
+  } catch (ex) {
+    console.error(ex);
+  }
+
   return null;
 }

@@ -1,10 +1,9 @@
 import Box from '@mui/material/Box';
 import { Paper, Container, Typography } from '@mui/material';
-import React from 'react';
 
 export default function AppFooter() {
     return (
-      <Paper sx={{marginTop: 'calc(10% + 60px)',
+      <Paper sx={{marginTop: 'calc(10% + 240px)',
       width: '100%',
       position: 'fixed',
       bottom: 0,

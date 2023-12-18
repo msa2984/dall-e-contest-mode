@@ -5,7 +5,8 @@ from better_profanity import profanity
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.open_ai_service import generate_image
-from services.contest_service import add_contest_image, vote_for_image
+from services.contest_service import add_contest_image, vote_for_image, get_top_scores, get_all_entries
+from models import ContestImage
 
 
 api = Blueprint('api', __name__, url_prefix="/api")
@@ -26,6 +27,8 @@ async def create_image():
         if(prompt is None or prompt == ''):
             response = make_response(jsonify({"error": "The user did not provide a prompt to create an image for!"}))
             response.status_code = 403
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
             return response
 
         isProfaneText = profanity.contains_profanity(prompt)
@@ -34,6 +37,8 @@ async def create_image():
             print(f'{user} requested an image of {prompt}. This requested was deemed inappropriate or profane.')
             response = make_response(jsonify({"error": "The user's request contained offensive or profane content. Please retry with an appropriate request.",}))
             response.status_code = 403
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
             return response
     
         image_url = await generate_image(prompt)
@@ -64,8 +69,10 @@ async def submit_image():
         user =  request.json['email']
 
         if(url is None or url == ''):
-            response = make_response(jsonify({"error": "The user did not the image URL to submit!"}))
+            response = make_response(jsonify({"error": "The user did not provide the image URL to submit!"}))
             response.status_code = 403
+            response.headers.add('Access-Control-Allow-Origin', '*')
+            response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
             return response
 
         if(prompt is not None):
@@ -79,14 +86,14 @@ async def submit_image():
                 response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
                 return response
             
-        image_id = uuid.uuid4()
-        was_add_successful = add_contest_image({user: user, url: url, prompt: prompt, id: image_id})
+        image_id = uuid.uuid4() 
+        was_add_successful = add_contest_image(ContestImage(image_id, url, user, prompt, 0))
 
         if(was_add_successful):
-            response = make_response(jsonify)({"message": "Successfully added new image!"})
+            response = make_response(jsonify({"message": "Successfully added new image!"}))
             response.status_code = 200
         else: 
-            response = make_response(jsonify)({"message": "Could not add new image!"})
+            response = make_response(jsonify({"message": "Could not add new image!"}))
             response.status_code = 500    
 
     except Exception as e:
@@ -110,10 +117,10 @@ async def vote_for_images():
             was_vote_successful = vote_for_image(id)
 
             if(was_vote_successful):
-                response = make_response(jsonify)({"message": "Successfully added new image!"})
+                response = make_response(jsonify({"message": "Successfully added new image!"}))
                 response.status_code = 200
             else: 
-                response = make_response(jsonify)({"message": "Could not add new image!"})
+                response = make_response(jsonify({"message": "Could not add new image!"}))
                 response.status_code = 500    
 
     except Exception as e:
@@ -133,10 +140,10 @@ async def sort_by_score():
         top_scores = get_top_scores()
 
         if(top_scores):
-            response = make_response(jsonify)({"podium": top_scores})
+            response = make_response(jsonify({"podium": top_scores}))
             response.status_code = 200         
         else: 
-            response = make_response(jsonify)({"message": "Could not get top scoring images!"})
+            response = make_response(jsonify({"message": "Could not get top scoring images!"}))
             response.status_code = 500    
 
     except Exception as e:
@@ -146,4 +153,27 @@ async def sort_by_score():
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     return response
-            
+
+@api.route('/contest-entries', methods = ['GET'])
+async def get_contest_entries():
+    '''
+    A function which returns the list of all contest entries.
+    '''
+    try:
+        entries = get_all_entries()
+
+        if(entries):
+            response = make_response(jsonify({"entries": entries}))
+            response.status_code = 200         
+        else: 
+            response = make_response(jsonify({"message": "Could not get contest entries!"}))
+            response.status_code = 500    
+        
+
+    except Exception as e:
+        response = make_response(jsonify({"error": e}))
+        response.status_code = 500
+    
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    return response    

@@ -55,3 +55,9 @@ def get_top_scores() -> []:
     except Exception as e:
         print(e)
         return None
+    
+def get_all_entries() -> []:
+    '''
+    A function which returns all of the ContestImages.
+    '''
+    return contest_entries

@@ -9,7 +9,7 @@ import { getImageFromPrompt, submitCurrentImage } from '../api/api';
 import { Link } from 'react-router-dom';
 
 export default function Imagine() {
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useState<string>(localStorage.getItem('email') ?? '');
   const [prompt, setPrompt] = useState<string>('');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
@@ -19,6 +19,7 @@ export default function Imagine() {
   async function submitCurrentPrompt() {
     if(!email) {
       console.warn('Tried to submit without an email address!');
+      return;
     }
 
     if(prompt) {
@@ -27,7 +28,7 @@ export default function Imagine() {
       setIsImageLoading(true);
       setImageUrl('');
 
-      const result = await getImageFromPrompt(prompt);
+      const result = await getImageFromPrompt(prompt, email);
       if(result){
         setImageUrl(result);
       } else {
@@ -42,10 +43,11 @@ export default function Imagine() {
   async function submitToClassContest(){
     if(!email) {
       console.warn('Tried to submit without an email address!');
+      return;
     }
     
     if(prompt && imageUrl) {
-      const result = await submitCurrentImage(prompt, imageUrl);
+      const result = await submitCurrentImage(prompt, imageUrl, email);
       if(result) {
         setDidSubmissionSucceed(true);
       } else {
@@ -65,7 +67,8 @@ export default function Imagine() {
                 label="Provide your email address"
                 value={email}
                 onChange={(event) => {
-                  setEmail(event.target.value);}}
+                  setEmail(event.target.value);
+                  localStorage.setItem('email', event.target.value);}}
                 variant="filled"
                 className="imagine-input-container"/>
               <Typography>Using the following textbox, provide a description to generate an image. DALL-E can understand many languages, however you may see the most consistent results with English or Spanish.</Typography>

@@ -39,13 +39,13 @@
 
 .imagine-prompt-submit-button {
   margin: 0 12px 0 24px;
-  height: 56px;
+  height: 48px;
   float: right;
 }
 
 .image-fmt {
-  max-width: 600px;
-  max-height: 600px;
+  max-width: 560px;
+  max-height: 560px;
 }
 
 .progress-spinner {
