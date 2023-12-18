@@ -6,15 +6,15 @@ import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
+import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import { useState } from "react";
-import React from "react";
 import { Link } from "react-router-dom";
 
 const pages = [
   ["Home", "/home"],
-  ["About", "/about"],
   ["Imagine", "/imagine"],
+  ["Contest", "/contest"],
+  ["About", "/about"],
 ];
 
 function AppMenu() {
@@ -29,7 +29,7 @@ function AppMenu() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <div style={{ flexGrow: 1 }}>
-            <SmartToyIcon
+            <PrecisionManufacturingIcon
               sx={{ display: { xs: "none", md: "flex" }, float: "left", mr: 2 }}
             />
             <Typography
@@ -80,7 +80,7 @@ function AppMenu() {
             </Menu>
           </Box>
           <div style={{ flexGrow: 1, float: "left" }}>
-            <SmartToyIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <PrecisionManufacturingIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap

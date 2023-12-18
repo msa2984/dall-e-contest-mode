@@ -16,7 +16,6 @@
 .App-header {
   background-color: #01215c;
   min-height: 100vh;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -28,12 +27,35 @@
   color: #61dafb;
 }
 
-.imagine-text-field {
-  height: 75px;
+.imagine-input-container {
   width: 55%;
+  display: block;
+  padding-bottom: 36px;
+}
+
+.imagine-text-field {
+  width: 100%;
 }
 
 .imagine-prompt-submit-button {
-  margin: 0 4px 0 0;
-  height: 55px;
+  margin: 0 12px 0 24px;
+  height: 56px;
+  float: right;
+}
+
+.image-fmt {
+  max-width: 600px;
+  max-height: 600px;
+}
+
+.progress-spinner {
+  align-items: center;
+  justify-content: center;
+  min-width: 35%;
+  min-height: 35%;
+}
+
+.email-address-textfield {
+  float: right;
+  width: 55%;
 }
