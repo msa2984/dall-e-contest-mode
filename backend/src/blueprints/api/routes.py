@@ -5,7 +5,7 @@ from better_profanity import profanity
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.open_ai_service import generate_image
-from services.contest_service import add_contest_image, vote_for_image, get_top_scores, get_all_entries
+from services.contest_service import add_contest_image, vote_for_image, get_top_scores, get_all_entries, is_voter_present, complete_voting
 from models import ContestImage
 
 
@@ -123,6 +123,8 @@ async def vote_for_images():
                 response = make_response(jsonify({"message": "Could not add new image!"}))
                 response.status_code = 500    
 
+        complete_voting(user)
+
     except Exception as e:
         response = make_response(jsonify({"error": e}))
         response.status_code = 500
@@ -161,9 +163,20 @@ async def get_contest_entries():
     '''
     try:
         entries = get_all_entries()
+        serialized_entries = []
+        
+        for entry in entries:
+            serialized_entries.append({
+            'id': entry.id,
+            'user': entry.user,
+            'prompt': entry.prompt,
+            'url': entry.url,
+            'votes': entry.votes})
 
-        if(entries):
-            response = make_response(jsonify({"entries": entries}))
+        print(serialized_entries)
+
+        if(serialized_entries):
+            response = make_response(jsonify({"entries": serialized_entries}))
             response.status_code = 200         
         else: 
             response = make_response(jsonify({"message": "Could not get contest entries!"}))
@@ -176,4 +189,22 @@ async def get_contest_entries():
     
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    return response    
+    return response
+
+@api.route('/voter-record', methods = ['POST'])
+async def get_voter_record():
+    '''
+    A function which returns true if the current user has already voted.
+    '''
+    try:
+        user =  request.json['email']
+        did_user_vote = is_voter_present(user)
+        response = make_response(jsonify({"didUserVote": did_user_vote}))
+        response.status_code = 200
+    except Exception as e:
+        response = make_response(jsonify({"error": e}))
+        response.status_code = 500
+    
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+    return response

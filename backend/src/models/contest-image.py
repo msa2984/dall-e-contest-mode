@@ -8,3 +8,4 @@ class ContestImage:
         self.prompt = prompt
         self.url = url
         self.votes = votes
+    

@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 const pages = [
   ["Home", "/home"],
   ["Imagine", "/imagine"],
-  ["Contest", "/contest"],
   ["About", "/about"],
 ];
 

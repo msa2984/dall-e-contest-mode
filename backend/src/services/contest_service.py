@@ -5,6 +5,7 @@ from models import ContestImage
 
 # An empty array which will be populated with ContestImage objects
 contest_entries = []
+completed_voters = []
 
 def add_contest_image(obj: ContestImage) -> bool:
     '''
@@ -61,3 +62,19 @@ def get_all_entries() -> []:
     A function which returns all of the ContestImages.
     '''
     return contest_entries
+
+def complete_voting(user) -> bool:
+    '''
+    A method to add a voter to the voter list once they have completed voting.
+    '''
+    completed_voters.append(user)
+    return True
+
+def is_voter_present(user) -> bool:
+    '''
+    A method to return True if a user has already voted.
+    '''
+    for voter in completed_voters:
+        if voter == user:
+            return True
+    return False

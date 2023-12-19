@@ -139,3 +139,31 @@ export async function getAllEntries(): Promise<Array<any> | null> {
 
   return null;
 }
+
+// A caller function for the /api/voter-record endpoint.
+// Returns true if the user has previously voted.
+export async function getVotingRecord(email: string): Promise<boolean | null> {
+    try {
+      const url = apiPrefix.concat("/api/voter-record");
+      const response = await fetch(url, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email
+        }),
+      });
+  
+      if (response.ok) {
+        return (await response.json()).didUserVote;
+      } else {
+        console.error(
+          `There was an error trying to vote in the contest! Error: ${response.statusText}`
+        );
+      }
+    } catch (ex) {
+      console.error(ex);
+    }
+    return null;
+}

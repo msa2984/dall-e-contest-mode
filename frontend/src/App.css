@@ -33,6 +33,12 @@
   padding-bottom: 36px;
 }
 
+.imagine-contest-container {
+  width: 100%;
+  display: block;
+  padding-bottom: 36px;
+}
+
 .imagine-text-field {
   width: 100%;
 }
@@ -43,9 +49,20 @@
   float: right;
 }
 
+.imagine-vote-submit-button {
+  margin: 0 12px 0 24px;
+  height: 48px;
+  float: left;
+}
+
 .image-fmt {
   max-width: 560px;
   max-height: 560px;
+}
+
+.contest-image-fmt {
+  max-width: 360px;
+  max-height: 360px;
 }
 
 .progress-spinner {

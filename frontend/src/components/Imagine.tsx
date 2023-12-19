@@ -120,7 +120,7 @@ export default function Imagine() {
                 {!isImageLoading && imageUrl && <div>
                     <Typography variant="h5">Generated Image</Typography>
                     <img src={imageUrl} alt={prompt} className='image-fmt'/>
-                    <Typography>Like this image? Submit it to the class contest! You can see your current submission on the <Link to="/contest">Contest</Link> page. Selecting the submit button will overwrite your current entry.</Typography>
+                    <Typography>Like this image? Submit it to the class contest! You can see your current submission on the contest page. Selecting the submit button will overwrite your current entry.</Typography>
                     <Button
                     className="imagine-prompt-submit-button"
                     variant="contained"

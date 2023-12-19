@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify
-from flask_cors import cross_origin
 import os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from services.open_ai_service import verify_openai_connection
