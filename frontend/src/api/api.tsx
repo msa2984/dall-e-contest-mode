@@ -1,4 +1,4 @@
-const apiPrefix = "http://localhost:5000";
+const apiPrefix = "https://dall-e-contest-app.azurewebsites.net";
 
 // A caller function for the /api/create endpoint
 // Makes a request to DALL-E to create an image

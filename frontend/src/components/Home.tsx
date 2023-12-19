@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import AppContainer from './AppContainer';
 import AppLayout from './AppLayout';
-import React from 'react';
 
 export default function Home() {
   return (

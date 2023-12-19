@@ -6,7 +6,6 @@ import { Button, TextField, Typography } from '@mui/material';
 import { Check } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { getImageFromPrompt, submitCurrentImage } from '../api/api';
-import { Link } from 'react-router-dom';
 
 export default function Imagine() {
   const [email, setEmail] = useState<string>(localStorage.getItem('email') ?? '');

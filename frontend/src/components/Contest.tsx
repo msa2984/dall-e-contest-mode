@@ -16,6 +16,7 @@ export default function Contest() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setSelectedEntries([]);
         const entry_response = await getAllEntries();
         setEntries(entry_response);
 
@@ -44,15 +45,15 @@ export default function Contest() {
     }
   }
 
-  function updateSelectedEntries(selectedEntry: string){
-    if(selectedEntries.find(s => s == selectedEntry)){
-      setSelectedEntries(selectedEntries.filter(s => s == selectedEntry));
-    } else {
-      if(selectedEntries.length <= 3) {
-        setSelectedEntries(selectedEntries.concat(selectedEntry));
-      }
-    }
-  }
+  // function updateSelectedEntries(selectedEntry: string){
+  //   if(selectedEntries.find(s => s == selectedEntry)){
+  //     setSelectedEntries(selectedEntries.filter(s => s == selectedEntry));
+  //   } else {
+  //     if(selectedEntries.length <= 3) {
+  //       setSelectedEntries(selectedEntries.concat(selectedEntry));
+  //     }
+  //   }
+  // }
   
   return (
     <>
